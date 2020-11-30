@@ -21,7 +21,7 @@ A primary aim of this project is to provide hands-on experience of programming i
 
 You should have received details from your teacher about how to access the *Planet Hunting with Python* project that is running at [planethunting.ph.qmul.ac.uk](https://planethunting.ph.qmul.ac.uk/). Click on that link and use the password provided to your teacher to gain access to the server. You will be invited to create your own account and you should do this. Please make a note of your password, as automatic password resets are not possible on this system. You will need to use the token provided to your teacher to complete the task of creating an account. And finally, you really need to use the Google Chrome browser as other browsers will not work!
 
-When you gain access to the system you should see a project named after your school. There will see two folders. The one called **MasterFiles** should be left untouched. This contains back-ups of all the files you will be provided with. The other directory is called **StudentsWork**. Click on this and you should see a number of files, and in particular you should see the following Jupyter notebooks:  
+When you gain access to the system you should see a project named after your school. There will see two folders. The one called **MasterFiles** should be left untouched. This contains back-ups of all the files you will be provided with. The other directory is called **StudentWorkingFiles**. Click on this and you should see a number of files, and in particular you should see the following Jupyter notebooks:  
 * **Getting to know Python3.ipynb**
 * **Obtaining Planet Parameters.ipynb**
 * **KeplerDataIntro.ipynb**
