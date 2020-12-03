@@ -27,7 +27,7 @@ You should have received details from your teacher about how to access the *Plan
 * Please make a note of your password, as automatic password resets are not possible on this system. 
 * Once you have successfully created an account click on the project invitation link your teacher has provided.
 
-When you gain access to the system you should see a project named after your school. There will see two folders. The one called **MasterFiles** should be left untouched. This contains back-ups of all the files you will be provided with. The other directory is called **StudentWorkingFiles**. Click on this and you should see a number of files, and in particular you should see the following Jupyter notebooks:  
+When you gain access to the system you should see a project named after your school. There will see two folders. The one called **MasterFiles** should be left untouched. This contains back-ups of all the files you will be provided with. The other directory is called **StudentWorkingFiles**. Click on this. If the students in your school are working in a single group, then you should see a number of files. If you are working in groups, then click on your group name and you will see a number of files. In particular, you should see the following Jupyter notebooks:  
 * **Getting to know Python3.ipynb**
 * **Obtaining Planet Parameters.ipynb**
 * **KeplerDataIntro.ipynb**
