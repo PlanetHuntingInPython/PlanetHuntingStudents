@@ -17,9 +17,15 @@ The Kepler spacecraft produced data in the form of light curves for each of the 
 
 A primary aim of this project is to provide hands-on experience of programming in Python within the context of astronomical data analysis. Python is becoming a commonly used programming language in many areas of life, including in the scientific world where it is used for data analysis and mathematical modelling, and in schools and universities where it is becoming the language of choice when teaching computer programming. Python’s increasing popularity arises for a number of reasons: it is free to use; it runs under all operating systems (Windows, Mac OS X, Linux); its basic structure and syntax is similar to many other languages; it contains the ability to perform mathematical calculations and to plot data in graphical form within a self-contained programming package. You will be using Jupyter notebooks as the programming environment in this project, and you will run these notebooks on a dedicated Planet Hunting platform running at Queen Mary University of London. All you need to engage with the project is a web browser (Google Chrome!) and an internet connection.
 
-## Getting Started
+## Instructions for getting started
 
-You should have received details from your teacher about how to access the *Planet Hunting with Python* project that is running at [planethunting.ph.qmul.ac.uk](https://planethunting.ph.qmul.ac.uk/). Click on that link and use the password provided to your teacher to gain access to the server. You will be invited to create your own account and you should do this. Please make a note of your password, as automatic password resets are not possible on this system. You will need to use the token provided to your teacher to complete the task of creating an account. And finally, you really need to use the Google Chrome browser as other browsers will not work!
+You should have received details from your teacher about how to access the *Planet Hunting with Python* project that is running at [planethunting.ph.qmul.ac.uk](https://planethunting.ph.qmul.ac.uk/). 
+
+* Make sure you are using the Google Chrome browser!
+* Click on the above link and use the username and password provided to your teacher to gain access to the server. 
+* You will be invited to create your own account and you should do this. You will need to use the account creation token to complete the process of creating an account. 
+* Please make a note of your password, as automatic password resets are not possible on this system. 
+* Once you have successfully created an account click on the project invitation link your teacher has provided.
 
 When you gain access to the system you should see a project named after your school. There will see two folders. The one called **MasterFiles** should be left untouched. This contains back-ups of all the files you will be provided with. The other directory is called **StudentWorkingFiles**. Click on this and you should see a number of files, and in particular you should see the following Jupyter notebooks:  
 * **Getting to know Python3.ipynb**
