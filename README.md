@@ -37,4 +37,4 @@ When you click on a notebook it should open. Please work through the notebooks i
 
 ## Getting help
 
-The project is being run by Richard Nelson, a Professor of Astronomy at Queen Mary University of London, with assistance from George Turpin and Kevin Chan, PhD students in Astronomy. If you need assistance in any aspects of the project then this can be provided by us in the form of emails or through zoom calls. Please ask your teacher to contact us if you need assistance.
+The project is being run by Richard Nelson, a Professor of Astronomy at Queen Mary University of London, with assistance from George Turpin and Kevin Chan, PhD students in Astronomy. If you need assistance with any aspects of the project then this can be provided by us in the form of emails or through zoom calls. Please ask your teacher to contact us if you need assistance. Good luck and we hope you enjoy working on this project!
