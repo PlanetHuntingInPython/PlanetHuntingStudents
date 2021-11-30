@@ -28,8 +28,8 @@ You should have received details from your teacher about how to access the *Plan
 * Once you have successfully created an account click on the project invitation link your teacher has provided.
 
 When you gain access to the system you should see a project named after your school. There will see two folders. The one called **MasterFiles** should be left untouched. This contains back-ups of all the files you will be provided with. The other directory is called **StudentWorkingFiles**. Click on this. If the students in your school are working in a single group, then you should see a number of files. If you are working in groups, then click on your group name and you will see a number of files. In particular, you should see the following Jupyter notebooks:  
-* **Getting to know Python3.ipynb**
-* **Obtaining Planet Parameters.ipynb**
+* **GettingToKnowPython.ipynb**
+* **ObtainingPlanetParameters.ipynb**
 * **KeplerDataIntro.ipynb**
 * **KeplerGuidedExercises.ipynb**
 
@@ -38,3 +38,4 @@ When you click on a notebook it should open. Please work through the notebooks i
 ## Getting help
 
 The project is being run by Richard Nelson, a Professor of Astronomy at Queen Mary University of London, with assistance from George Turpin and Kevin Chan, PhD students in Astronomy. If you need assistance with any aspects of the project then this can be provided by us in the form of emails or through zoom calls. Please ask your teacher to contact us if you need assistance. Good luck and we hope you enjoy working on this project!
+
