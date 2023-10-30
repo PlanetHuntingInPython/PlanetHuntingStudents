@@ -37,7 +37,7 @@ When you click on a notebook it should open. Please work through the notebooks i
 
 ## Introductory YouTube video
 
-A video that explains the project and provides some guidance on how to get started is available at this link: [Planet Hunting video](https://www.youtube.com/watch?v=uCjkaYBOWqY).
+A video that explains the project and provides guidance on how to get started is available at this link: [Planet Hunting video](https://www.youtube.com/watch?v=uCjkaYBOWqY).
 
 ## Getting help
 
