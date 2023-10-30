@@ -27,15 +27,19 @@ You should have received details from your teacher about how to access the *Plan
 * Please make a note of your password, as automatic password resets are not possible on this system. 
 * Once you have successfully created an account click on the project invitation link your teacher has provided.
 
-When you gain access to the system you should see a project named after your school. There will see two folders. The one called **MasterFiles** should be left untouched. This contains back-ups of all the files you will be provided with. The other directory is called **StudentWorkingFiles**. Click on this. If the students in your school are working in a single group, then you should see a number of files. If you are working in groups, then click on your group name and you will see a number of files. In particular, you should see the following Jupyter notebooks:  
+When you gain access to the system you should see a project named after your school. There will see a number of folders: **Group1, Group2, ..., Group5**. Click on the group to which you have been assigned by your teacher and you should see the following Jupyter notebooks:  
 * **GettingToKnowPython.ipynb**
-* **ObtainingPlanetParameters.ipynb**
 * **KeplerDataIntro.ipynb**
+* **ObtainingPlanetParameters.ipynb**
 * **KeplerGuidedExercises.ipynb**
 
-When you click on a notebook it should open. Please work through the notebooks in the order they are listed above. The notebook **GettingToKnowPython.ipynb** gives an introduction to Python programming and Jupyter notebooks. We encourage you to work through this to obtain experience of Python programming and the Jupyter notebook interface. **ObtainingPlanetParameters.ipynb** describes the physics and geometry associated with obtaining the parameters of the exoplanets discovered by the Kepler mission. **KeplerDataIntro.ipynb** gives an introduction to reading the Kepler data files using Python, plotting them and analysing them to obtain parameters. And finally **KeplerGuidedExercises.ipynb** provides a guided exercise in analysing one of the Kepler planetary systems in detail. All of the files you will analyse from the Kepler and TESS missions are contained in the folder **Data** that you should see listed.
+When you click on a notebook it should open. Please work through the notebooks in the order they are listed above. The notebook **GettingToKnowPython.ipynb** gives an introduction to Python programming and Jupyter notebooks. We encourage you to work through this to obtain experience of Python programming and the Jupyter notebook interface. **KeplerDataIntro.ipynb** gives an introduction to reading the Kepler data files using Python, plotting them and analysing them to obtain parameters. **ObtainingPlanetParameters.ipynb** describes the physics and geometry associated with obtaining the parameters of the exoplanets discovered by the Kepler mission. And finally **KeplerGuidedExercises.ipynb** provides a guided exercise in analysing one of the Kepler planetary systems in detail. All of the files you will analyse from the Kepler and TESS missions are contained in the folder **Data** that you should see listed.
+
+## Introductory YouTube video
+
+A video that explains the project and provides some guidance on how to get started is available at this link: [Planet Hunting video](https://www.youtube.com/watch?v=uCjkaYBOWqY).
 
 ## Getting help
 
-The project is being run by Richard Nelson, a Professor of Astronomy at Queen Mary University of London, with assistance from George Turpin and Kevin Chan, PhD students in Astronomy. If you need assistance with any aspects of the project then this can be provided by us in the form of emails or through zoom calls. Please ask your teacher to contact us if you need assistance. Good luck and we hope you enjoy working on this project!
+The project is being run by Richard Nelson, a Professor of Astronomy at Queen Mary University of London, with assistance from George Turpin and Andrea Constantini, PhD students in Astronomy. If you need assistance with any aspects of the project then this can be provided by us in the form of emails or through zoom calls. Please ask your teacher to contact us if you need assistance. Good luck and we hope you enjoy working on this project!
 
