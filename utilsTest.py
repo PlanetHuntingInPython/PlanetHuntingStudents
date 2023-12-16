@@ -1,4 +1,4 @@
-from utilities import *
+from utils import *
 from time import perf_counter
 import random
 import numpy as np
