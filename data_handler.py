@@ -9,14 +9,6 @@ class AbstractDataHandler(ABC):
     @abstractmethod
     def getData(self):
         return None
-    
-    @abstractmethod
-    def getData(self):
-        return None
-    
-    @abstractmethod
-    def getData(self):
-        return None
 
 class LocalDataHandler(AbstractDataHandler):
     stellarMassRadiusDict = None
@@ -26,7 +18,7 @@ class LocalDataHandler(AbstractDataHandler):
         self.times, self.flux = np.loadtxt(f"Data/{dataID}.tbl", unpack=True, skiprows=3)[1:]
         if self.stellarMassRadiusDict is None:
             self.__initialiseStellarMassRadiusDict()
-        self.radius, self.mass = self.stellarMassRadiusDict[dataID]
+        self.radius, self.mass = self.stellarMassRadiusDict[dataID] if dataID in self.stellarMassRadiusDict else None, None
 
     def getData(self):
         return self.times, self.flux
