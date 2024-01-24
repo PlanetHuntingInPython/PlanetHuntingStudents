@@ -4,20 +4,20 @@ import matplotlib.pyplot as plt
 
 #1/N * summation of (Fi - Fm)^2 / o^2  N times
 
-c, a, b = np.loadtxt("model.txt", unpack= True)
+c, a, b = np.loadtxt("model.tbl", unpack= True)
 data_file = "Planet-Hunting-local/KIC006922244.tbl" #data file that will be inputted
 z, x, y = np.loadtxt(data_file, unpack = True, skiprows = 3)
 
 
 
 N = len(x) 
-total1 = 0
-total2 = 0
+total_of_squares = 0
+total_for_mean = 0
 for i in y:
-    total1 += i**2
-    total2 += i
-mean_of_squares = total1/N
-mean = total2/N
+    total_of_squares += i**2
+    total_for_mean += i
+mean_of_squares = total_of_squares/N
+mean = total_for_mean/N
 
 variance = mean_of_squares - mean**2
 
