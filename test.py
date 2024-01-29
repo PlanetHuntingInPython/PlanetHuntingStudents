@@ -26,10 +26,11 @@ def timedTest(dataID, plotType=""):
     t.out("Initialisation")
     period = analyser.getOrbitalPeriod()
     t.out("Period")
-    print(analyser.getModel()[0])
+    print(m := analyser.getModel(), m.min, m.max)
+    t.out("Model")
     print(period)
     t.totalOut()
     analyser.plot(plotType)
 
 #KIC002571238 period = 9.286989632903225
-timedTest("KIC002571238", "phase")
+timedTest("KIC002571238", "pm")
