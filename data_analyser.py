@@ -220,7 +220,7 @@ class PhaseFoldedTransitModel():
         #Finds the transit bounds to create the interpolated model from.
         self.min, peak, self.max = self.transitDetector.findTransitBounds(0)
         #Creates a polynomial to fit the phase folded transit.
-        self.model = Polynomial.fit(*self.transitDetector[self.min:self.max], 6)
+        self.model = Polynomial.fit(*self.transitDetector[self.min:self.max], 4)
         #Finds the domain of the polynomial model.
         for root in sorted([float(x) for x in self.model.roots() if np.isreal(x)]):
             if root > 0:
@@ -256,4 +256,7 @@ class PhaseFoldedTransitModel():
         Returns:
             flux (float) -- The flux at the specified time evaluated from the model.
         """
-        return polyval(time, self.coeffs) if self.min < time < self.max else .0
+        if isinstance(time, slice):
+            return np.fromiter((self[x] for x in np.arange(time.start, time.stop, time.step)), float)
+        else:
+            return polyval(time, self.coeffs) if self.min < time < self.max else .0
