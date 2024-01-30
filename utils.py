@@ -27,3 +27,6 @@ def interpolationSearch(array, element):
         else:
             lb = mid
     return ub if array[ub := floor(ub)] <= element else floor(lb)
+
+def chiSquaredFunc():
+    return
