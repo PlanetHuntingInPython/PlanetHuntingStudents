@@ -1,0 +1,7 @@
+matplotlib
+statistics
+math
+numpy
+abc
+PyPDF2
+scipy
