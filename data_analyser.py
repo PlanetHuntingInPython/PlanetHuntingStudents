@@ -1,4 +1,5 @@
 from math import floor
+from statistics import variance
 from data_handler import AbstractDataHandler, LocalDataHandler
 import matplotlib.pyplot as plt
 import numpy as np
@@ -257,3 +258,8 @@ class PhaseFoldedTransitModel():
             flux (float) -- The flux at the specified time evaluated from the model.
         """
         return polyval(time, self.coeffs) if self.min < time < self.max else .0
+    
+    def chiSquaredFunc(self):
+        N = len(self.phaseFoldedTimes)
+        squaredValsGenerator = ((self.phaseFoldedFlux[i] - self[self.phaseFoldedTimes[i]])**2 for i in range(N))
+        return (sum(squaredValsGenerator)/(N*variance(self.phaseFoldedFlux)))**0.5
