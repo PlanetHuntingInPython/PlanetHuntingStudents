@@ -2,7 +2,6 @@
 # and the orbital inclination of a planet using the Star Radius, Planet Radius, Orbital Period and Transit Duration
 
 import math
-
 # Calculates the transit impact parameter using the Star Radius, Planet Radius, Orbital Period and Transit Duration
 def TransitImpactParameter(StarRadius,PlanetRadius, OrbitalPeriod, TransitDuration):
     return (((((StarRadius-PlanetRadius)**2)-((SemiMajorAxis2(OrbitalPeriod, TransitDuration)*math.sin((TransitDuration * math.pi)/(OrbitalPeriod)))**2))**0.5)/(StarRadius))
