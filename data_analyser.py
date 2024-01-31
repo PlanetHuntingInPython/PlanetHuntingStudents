@@ -67,12 +67,13 @@ class TransitDetector():
         fluxLow = self.flux[start]
         iLow = start
         end = self.size - 2 if step >= 0 else 0
+        i = 0
         for i in range(start + 1, end, 1 if step >= 0 else -1):
             if (flux := self.flux[i]) < fluxLow:
                 fluxLow, iLow = flux, i
             elif self.flux[i] > 0 and self.flux[i + 1] > 0 and self.flux[i + 2] > 0:
                 return start, iLow, i
-        raise Exception("Transit not found")
+        return start, iLow, i
 
     def __findTransitStart(self, start=0, step=1):
         """
@@ -99,7 +100,7 @@ class TransitDetector():
         for i in range(start, end, step):
             if self.flux[i] < lb and self.flux[i + 1] < lb and self.flux[i + 2] < lb:
                 break
-        end = 1 if step >= 0 else self.size
+        end = -1 if step >= 0 else self.size
         for i in range(i, end, -1 if step >= 0 else 1):
             if self.flux[i] > lb and self.flux[i - 1] > lb and self.flux[i - 2] > lb:
                 return i
@@ -149,11 +150,11 @@ class DataAnalyser():
     def plot(self, plotType=""):
         match plotType:
             case "normal" | "standard" | "n" | "s":
-                plot(self.times, self.flux)
+                plot(self.getData())
             case "phase" | "phase folded" | "p":
-                plot(*self.getPhaseFoldedData())
+                plot(self.getPhaseFoldedData())
             case "model" | "m":
-                plot(*self.getModel().getData())
+                plot(self.getModel().getData())
             case "phase model" | "pm" | "p+":
                 plot(self.getPhaseFoldedData(), self.getModel().getData())
         plt.show()
@@ -190,9 +191,9 @@ class DataAnalyser():
     
     def __calculateOrbitalPeriod(self):
         self.getPhase()
+        self.transits.setStandardStep(self.transitLenth/4)
         self.period = self.phase - self.times[0]
         nextTransitTimePredicted = self.phase + self.period
-        self.transits.setStandardStep(self.transitLenth/2)
         lastTransit = self.transits.findTransitPeak(self.transits.end,-1)
         nTransitsStep, nTransits, skippedTransits = 1, 1, 0
         while nextTransitTimePredicted < lastTransit:
@@ -203,7 +204,25 @@ class DataAnalyser():
             nTransitsStep *= 2
             nTransits += nTransitsStep + skippedTransits
             nextTransitTimePredicted = nextTransitTimeFound + self.period*(nTransitsStep-0.05)
-        return (lastTransit-self.phase)/round((lastTransit-self.phase)/self.period)
+        nTransits -= nTransitsStep
+
+        peakSum, weightPeakSum = 0, 0
+        backtrack = -0.05*self.period
+        limit = 0.5*self.period
+        for iT in range(nTransits):
+            nextTransitTimePredicted = (normal := self.phase + iT*self.period) + backtrack 
+            nextTransitTimeFound = self.transits.findTransitPeak(nextTransitTimePredicted)
+            if limit >= nextTransitTimeFound - nextTransitTimePredicted:
+                peakSum += nextTransitTimeFound
+                weightPeakSum += iT*nextTransitTimeFound
+            else:
+                peakSum += normal
+                weightPeakSum += iT*normal
+        
+        midT = (nTransits-1)>>1
+        self.period = (12*(weightPeakSum - midT*peakSum))/(nTransits*(nTransits*nTransits - 1))
+        self.phase = peakSum/nTransits - self.period*midT
+        return self.period
 
 class PhaseFoldedTransitModel():
     def __init__(self, phaseFoldedTimes, phaseFoldedFlux):
@@ -222,7 +241,7 @@ class PhaseFoldedTransitModel():
         #Creates a polynomial to fit the phase folded transit.
         self.model = Polynomial.fit(*self.transitDetector[self.min:self.max], 4)
         #Finds the domain of the polynomial model.
-        for root in sorted([float(x) for x in self.model.roots() if np.isreal(x)]):
+        for root in sorted([x.real for x in self.model.roots() if np.isreal(x)]):
             if root > 0:
                 self.max = root
                 break
