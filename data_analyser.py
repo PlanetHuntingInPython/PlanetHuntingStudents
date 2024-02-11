@@ -1,8 +1,10 @@
-from math import floor
-from data_handler import AbstractDataHandler, LocalDataHandler
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy.polynomial.polynomial import Polynomial, polyval
+from math import floor
+
+from data_handler import AbstractDataHandler, LocalDataHandler
+from utils import estimatePeriodicSignal
 
 SAMPLES = 200
 
@@ -66,9 +68,9 @@ class TransitDetector():
         start = self.__findTransitStart(start, step)
         fluxLow = self.flux[start]
         iLow = start
-        end = self.size - 2 if step >= 0 else 0
+        end = self.size - 2
         i = 0
-        for i in range(start + 1, end, 1 if step >= 0 else -1):
+        for i in range(start + 1, end, 1):
             if (flux := self.flux[i]) < fluxLow:
                 fluxLow, iLow = flux, i
             elif self.flux[i] > 0 and self.flux[i + 1] > 0 and self.flux[i + 2] > 0:
@@ -176,7 +178,9 @@ class DataAnalyser():
         return self.model
 
     def getOrbitalPeriod(self):
-        return self.period if self.period is not None else self.__calculateOrbitalPeriod()
+        if self.period is None:
+            self.__calculateOrbitalPeriod()
+        return self.period
 
     def getTransitLength(self):
         if self.transitLength is None:
@@ -190,39 +194,32 @@ class DataAnalyser():
         return self.phase
     
     def __calculateOrbitalPeriod(self):
+        """Uses a least squares sum method to calculate the orbital period, and improves the estimation of the phase.
+        """
         self.getPhase()
-        self.transits.setStandardStep(self.transitLenth/4)
+        self.transits.setStandardStep(self.transitLenth/6)
         self.period = self.phase - self.times[0]
         nextTransitTimePredicted = self.phase + self.period
-        lastTransit = self.transits.findTransitPeak(self.transits.end,-1)
-        nTransitsStep, nTransits, skippedTransits = 1, 1, 0
-        while nextTransitTimePredicted < lastTransit:
-            nextTransitTimeFound = self.transits.findTransitPeak(nextTransitTimePredicted)
-            if nTransits > 1:
-                skippedTransits = round((nextTransitTimeFound-nextTransitTimePredicted)/self.period)
-            self.period = (nextTransitTimeFound - self.phase)/(nTransits + skippedTransits)
-            nTransitsStep *= 2
-            nTransits += nTransitsStep + skippedTransits
-            nextTransitTimePredicted = nextTransitTimeFound + self.period*(nTransitsStep-0.05)
-        nTransits -= nTransitsStep
-
-        peakSum, weightPeakSum = 0, 0
+        lastTransit = self.transits.findTransitBounds(self.transits.end,-1)[0]
         backtrack = -0.05*self.period
-        limit = 0.5*self.period
-        for iT in range(nTransits):
-            nextTransitTimePredicted = (normal := self.phase + iT*self.period) + backtrack 
-            nextTransitTimeFound = self.transits.findTransitPeak(nextTransitTimePredicted)
-            if limit >= nextTransitTimeFound - nextTransitTimePredicted:
-                peakSum += nextTransitTimeFound
-                weightPeakSum += iT*nextTransitTimeFound
-            else:
-                peakSum += normal
-                weightPeakSum += iT*normal
+        nTransits = 1
+        peakSum, weightedPeakSum = self.phase, 0
+        nSkippedTransits, skippedTransitsSum, skippedTransitsSquareSum = 0, 0, 0
+        while nextTransitTimePredicted < lastTransit:
+            nextTransitTimeFound = self.transits.findTransitPeak(nextTransitTimePredicted + backtrack)
+            if (currentSkippedTransits := round((nextTransitTimeFound-nextTransitTimePredicted)/self.period)) and nTransits > 1:
+                newNTransits = nTransits + currentSkippedTransits
+                nSkippedTransits += currentSkippedTransits
+                skippedTransitsSum += sum((x for x in range(nTransits,newNTransits)))
+                skippedTransitsSquareSum += sum((x*x for x in range(nTransits,newNTransits)))
+                nTransits = newNTransits
+            peakSum += nextTransitTimeFound
+            weightedPeakSum += nTransits*nextTransitTimeFound
+            self.period = (nextTransitTimeFound - self.phase)/nTransits
+            nextTransitTimePredicted = nextTransitTimeFound + self.period
+            nTransits += 1
         
-        midT = (nTransits-1)>>1
-        self.period = (12*(weightPeakSum - midT*peakSum))/(nTransits*(nTransits*nTransits - 1))
-        self.phase = peakSum/nTransits - self.period*midT
-        return self.period
+        self.period, self.phase = estimatePeriodicSignal(peakSum, weightedPeakSum, nTransits, nSkippedTransits, skippedTransitsSum, skippedTransitsSquareSum)
 
 class PhaseFoldedTransitModel():
     def __init__(self, phaseFoldedTimes, phaseFoldedFlux):

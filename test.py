@@ -33,5 +33,5 @@ def timedTest(dataID, plotType=""):
     t.totalOut()
     analyser.plot(plotType)
 
-#KIC002571238 period = 9.286904641385558
-timedTest("KIC005881688", "pm")
+#KIC002571238 period = 9.286958783276173
+timedTest("KIC011853905", "pm")
