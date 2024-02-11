@@ -150,11 +150,11 @@ class DataAnalyser():
     def plot(self, plotType=""):
         match plotType:
             case "normal" | "standard" | "n" | "s":
-                plot(self.times, self.flux)
+                plot((self.times, self.flux))
             case "phase" | "phase folded" | "p":
-                plot(*self.getPhaseFoldedData())
+                plot(self.getPhaseFoldedData())
             case "model" | "m":
-                plot(*self.getModel().getData())
+                plot(self.getModel().getData())
             case "phase model" | "pm" | "p+":
                 plot(self.getPhaseFoldedData(), self.getModel().getData())
         plt.show()

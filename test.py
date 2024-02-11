@@ -36,4 +36,4 @@ def timedTest(dataID, plotType=""):
     analyser.plot(plotType)
 
 #KIC002571238 period = 9.286989632903225
-timedTest("KIC002571238", "normal")
+timedTest("KIC002571238", "pm")
