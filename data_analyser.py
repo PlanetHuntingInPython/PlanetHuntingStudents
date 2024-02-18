@@ -19,7 +19,6 @@ def plot(*plots):
 class TransitDetector():
     def __init__(self, times, flux, averageTime=False):
         self.times, self.flux = times, flux
-        self.transitBound = None
 
         self.size = len(self.times)
         self.transitBound = None
@@ -118,28 +117,28 @@ class TransitDetector():
         """
         if self.transitBound is None:
             sortedSamples = sorted(self.flux[:SAMPLES])
-            self.transitBound = 3*sortedSamples[floor(0.25*SAMPLES)] - 2*sortedSamples[floor(0.75*SAMPLES)]
+            self.transitBound = max(3*sortedSamples[floor(0.25*SAMPLES)] - 2*sortedSamples[floor(0.75*SAMPLES)], sortedSamples[3])
         return self.transitBound
     
     def __getitem__(self, key):
         if isinstance(key, slice):
             start = self.__findTime(key.start)
             stop = self.__findTime(key.stop)
-            return self.times[start:stop:key.step], self.flux[start:stop:key.step]
+            return self.times[start:stop], self.flux[start:stop]
         else:
             i = self.__findTime(key)
             return self.times[i], self.flux[i]
 
 class DataAnalyser():
     def __init__(self, dataID, dataHandler:AbstractDataHandler=LocalDataHandler):
-        dataHandler = dataHandler(dataID)
+        self.dataHandler = dataHandler(dataID)
         #Flux against Time data
-        self.times, self.flux = dataHandler.getData()
+        self.times, self.flux = self.dataHandler.getData()
         self.phaseFoldedTimes, self.phaseFoldedFlux = None, None
         self.transits = TransitDetector(self.times, self.flux)
         self.model = None
         #Stellar radius and mass
-        self.radius, self.mass = dataHandler.getRadius(), dataHandler.getMass()
+        self.radius, self.mass = self.dataHandler.getRadius(), self.dataHandler.getMass()
 
 
         self.size = len(self.times)
@@ -175,6 +174,7 @@ class DataAnalyser():
     def getModel(self):
         if self.model is None:
             self.model = PhaseFoldedTransitModel(*self.getPhaseFoldedData())
+            self.transitLenth = self.model.max - self.model.min
         return self.model
 
     def getOrbitalPeriod(self):
@@ -236,14 +236,18 @@ class PhaseFoldedTransitModel():
         #Finds the transit bounds to create the interpolated model from.
         self.min, peak, self.max = self.transitDetector.findTransitBounds(0)
         #Creates a polynomial to fit the phase folded transit.
-        self.model = Polynomial.fit(*self.transitDetector[self.min:self.max], 4)
+        var = self.transitDetector[self.min:self.max]
+        self.model = Polynomial.fit(*var, 4)
         #Finds the domain of the polynomial model.
-        for root in sorted([x.real for x in self.model.roots() if np.isreal(x)]):
-            if root > 0:
-                self.max = root
-                break
-            else:
-                self.min = root
+        try:
+            for root in sorted([x.real for x in self.model.roots() if np.isreal(x)]):
+                if root > 0:
+                    self.max = root
+                    break
+                else:
+                    self.min = root
+        except Exception:
+            pass
         #Gets the coefficients of the polynomial model (used in evaluating the flux at a specified time in the __get_item__ function).
         self.coeffs = self.model.convert().coef
 

@@ -29,9 +29,9 @@ def timedTest(dataID, plotType=""):
     #m = analyser.getModel()
     #t.out("Model")
     #print(m.min, m.max)
-    print(period)
+    print(f"{period = }")
     t.totalOut()
     analyser.plot(plotType)
 
 #KIC002571238 period = 9.286958783276173
-timedTest("KIC011853905", "pm")
+timedTest("kplr009455325", "pm")
