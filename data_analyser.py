@@ -6,7 +6,7 @@ from math import floor
 from data_handler import AbstractDataHandler, LocalDataHandler
 from utils import estimatePeriodicSignal
 
-SAMPLES = 200
+SAMPLES = 300
 
 def plot(*plots):
     plt.figure()
@@ -68,7 +68,7 @@ class TransitDetector():
         fluxLow = self.flux[start]
         iLow = start
         end = self.size - 2
-        i = 0
+        i = start
         for i in range(start + 1, end, 1):
             if (flux := self.flux[i]) < fluxLow:
                 fluxLow, iLow = flux, i
@@ -97,6 +97,8 @@ class TransitDetector():
         """
         i = 0
         lb = self.getApproxTransitBound()
+        if start > self.size - 3:
+            start = self.size - 3
         end = self.size - 2 if step >= 0 else -1
         for i in range(start, end, step):
             if self.flux[i] < lb and self.flux[i + 1] < lb and self.flux[i + 2] < lb:
@@ -117,7 +119,7 @@ class TransitDetector():
         """
         if self.transitBound is None:
             sortedSamples = sorted(self.flux[:SAMPLES])
-            self.transitBound = max(3*sortedSamples[floor(0.25*SAMPLES)] - 2*sortedSamples[floor(0.75*SAMPLES)], sortedSamples[3])
+            self.transitBound = -sortedSamples[floor(0.99*SAMPLES)]
         return self.transitBound
     
     def __getitem__(self, key):
@@ -150,7 +152,7 @@ class DataAnalyser():
 
     def plot(self, plotType=""):
         match plotType:
-            case "normal" | "standard" | "n" | "s":
+            case "normal" | "standard" | "n" | "s" | "":
                 plot(self.getData())
             case "phase" | "phase folded" | "p":
                 plot(self.getPhaseFoldedData())
@@ -158,6 +160,8 @@ class DataAnalyser():
                 plot(self.getModel().getData())
             case "phase model" | "pm" | "p+":
                 plot(self.getPhaseFoldedData(), self.getModel().getData())
+            case _:
+                raise Exception("Invalid Plot Type: Plot not recognised.\nPlot Type Options: 'standard', 'phase folded', 'model', 'phase model'.")
         plt.show()
 
     def getData(self):
@@ -239,15 +243,12 @@ class PhaseFoldedTransitModel():
         var = self.transitDetector[self.min:self.max]
         self.model = Polynomial.fit(*var, 4)
         #Finds the domain of the polynomial model.
-        try:
-            for root in sorted([x.real for x in self.model.roots() if np.isreal(x)]):
-                if root > 0:
-                    self.max = root
-                    break
-                else:
-                    self.min = root
-        except Exception:
-            pass
+        for root in sorted([x.real for x in self.model.roots() if np.isreal(x)]):
+            if root > 0:
+                self.max = root
+                break
+            else:
+                self.min = root
         #Gets the coefficients of the polynomial model (used in evaluating the flux at a specified time in the __get_item__ function).
         self.coeffs = self.model.convert().coef
 
