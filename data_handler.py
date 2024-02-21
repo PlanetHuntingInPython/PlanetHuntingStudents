@@ -1,3 +1,4 @@
+import formulas
 from abc import ABC, abstractmethod
 from PyPDF2 import PdfReader
 import numpy as np
@@ -43,7 +44,7 @@ class LocalDataHandler(AbstractDataHandler):
             dataID (str) -- The ID of the data to load.
         """
         self.dataID = dataID.upper()
-        
+
         self.radius, self.mass = self.stellarMassRadiusDict[self.dataID] if self.dataID in self.stellarMassRadiusDict else (None, None)
         try:
             directory = self.systemsDirectoryDict[self.dataID]
@@ -52,8 +53,13 @@ class LocalDataHandler(AbstractDataHandler):
             elif directory.startswith("NewData"):
                 self.times, self.flux = np.loadtxt(directory, unpack=True, skiprows=136, usecols=[0,7])
                 self.removeInvalid()
-                with open(directory, 'r') as f:
-                    self.radius = float(f.readlines()[44][10:-2])
+
+                lines = open(directory, 'r').readlines()
+                #Parsing the /RADIUS file attribute
+                self.radius = float(lines[44][10:-1])
+                #Parsing and converting the /LLOG (stellar surface gravity) file attribute from log(cms^-2) to ms^-2
+                surface_gravity = 10**(float(lines[40][8:-1]) - 2)
+                self.mass = formulas.stellarMass(self.radius, surface_gravity)
         except KeyError:
             raise Exception("INVALID DATA ID: System not found.")
 
