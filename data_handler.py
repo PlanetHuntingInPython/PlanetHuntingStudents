@@ -43,16 +43,19 @@ class LocalDataHandler(AbstractDataHandler):
             dataID (str) -- The ID of the data to load.
         """
         self.dataID = dataID.upper()
+        
+        self.radius, self.mass = self.stellarMassRadiusDict[self.dataID] if self.dataID in self.stellarMassRadiusDict else (None, None)
         try:
             directory = self.systemsDirectoryDict[self.dataID]
             if directory.startswith("Data"):
-                self.times, self.flux = np.loadtxt(directory, unpack=True, skiprows=3)[1:]
+                self.times, self.flux = np.loadtxt(directory, unpack=True, skiprows=3, usecols=[1,2])
             elif directory.startswith("NewData"):
-                self.times, self.flux = np.loadtxt(directory, unpack=True, skiprows=136)[0:8:7]
+                self.times, self.flux = np.loadtxt(directory, unpack=True, skiprows=136, usecols=[0,7])
                 self.removeInvalid()
+                with open(directory, 'r') as f:
+                    self.radius = float(f.readlines()[44][10:-2])
         except KeyError:
             raise Exception("INVALID DATA ID: System not found.")
-        self.radius, self.mass = self.stellarMassRadiusDict[self.dataID] if self.dataID in self.stellarMassRadiusDict else None, None
 
     def removeInvalid(self):
         retainPos = [not np.isnan(flux) for flux in self.flux]
