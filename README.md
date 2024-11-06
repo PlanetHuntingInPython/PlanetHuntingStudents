@@ -19,7 +19,7 @@ A primary aim of this project is to provide hands-on experience of programming i
 
 ## Instructions for getting started
 
-You should have received details from your teacher about how to access the *Planet Hunting with Python* project that is running at [planethunting.ph.qmul.ac.uk](https://planethunting.ph.qmul.ac.uk/). 
+You should have received details from your teacher about how to access the *Planet Hunting with Python* project that is running at [planethunting2024.ph.qmul.ac.uk](https://planethunting2024.ph.qmul.ac.uk/). 
 
 * Make sure you are using the Google Chrome browser!
 * Click on the above link and use the username and password provided to your teacher to gain access to the server. 
@@ -27,7 +27,7 @@ You should have received details from your teacher about how to access the *Plan
 * Please make a note of your password, as automatic password resets are not possible on this system. 
 * Once you have successfully created an account click on the project invitation link your teacher has provided.
 
-When you gain access to the system you should see a project named after your school. There will see a number of folders: **Group1, Group2, ..., Group5**. Click on the group to which you have been assigned by your teacher and you should see the following Jupyter notebooks:  
+When you gain access to the system you should see a project named after your school. There will see a number of folders: **Group1, Group2, ..., Group8**. Click on the group to which you have been assigned by your teacher and you should see the following Jupyter notebooks:  
 * **GettingToKnowPython.ipynb**
 * **KeplerDataIntro.ipynb**
 * **ObtainingPlanetParameters.ipynb**
@@ -41,5 +41,5 @@ A video that explains the project and provides guidance on how to get started is
 
 ## Getting help
 
-The project is being run by Richard Nelson, a Professor of Astronomy at Queen Mary University of London, with assistance from George Turpin and Andrea Constantini, PhD students in Astronomy. If you need assistance with any aspects of the project then this can be provided by us in the form of emails or through zoom calls. Please ask your teacher to contact us if you need assistance. Good luck and we hope you enjoy working on this project!
+The project is being run by Richard Nelson, a Professor of Astronomy at Queen Mary University of London, with assistance from PhD students in Astronomy. If you need assistance with any aspects of the project then this can be provided by us in the form of emails or through zoom calls. Please ask your teacher to contact us if you need assistance. Good luck and we hope you enjoy working on this project!
 
