@@ -35,10 +35,6 @@ When you gain access to the system you should see a project named after your sch
 
 When you click on a notebook it should open. Please work through the notebooks in the order they are listed above. The notebook **GettingToKnowPython.ipynb** gives an introduction to Python programming and Jupyter notebooks. We encourage you to work through this to obtain experience of Python programming and the Jupyter notebook interface. **KeplerDataIntro.ipynb** gives an introduction to reading the Kepler data files using Python, plotting them and analysing them to obtain parameters. **ObtainingPlanetParameters.ipynb** describes the physics and geometry associated with obtaining the parameters of the exoplanets discovered by the Kepler mission. And finally **KeplerGuidedExercises.ipynb** provides a guided exercise in analysing one of the Kepler planetary systems in detail. All of the files you will analyse from the Kepler and TESS missions are contained in the folder **Data** that you should see listed.
 
-## Introductory YouTube video
-
-A video that explains the project and provides guidance on how to get started is available at this link: [Planet Hunting video](https://www.youtube.com/watch?v=uCjkaYBOWqY).
-
 ## Getting help
 
 The project is being run by Richard Nelson, a Professor of Astronomy at Queen Mary University of London, with assistance from PhD students in Astronomy. If you need assistance with any aspects of the project then this can be provided by us in the form of emails or through zoom calls. Please ask your teacher to contact us if you need assistance. Good luck and we hope you enjoy working on this project!
